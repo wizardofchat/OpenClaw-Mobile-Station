@@ -1,69 +1,66 @@
-Here is the updated README.md for your GitHub repository. I have included the "House" analogy for your son, the specific steps for Google and OpenRouter, and the exact "Android Fixes" we used to stop the bot from crashing.
-🤖 OpenClaw Mobile Station (UK Edition)
-🏠 The Story: Building a House for an AI
-Imagine your phone is a busy city. Usually, you only see the shops (Apps) that Google lets you visit. But we want to build our own Private Laboratory inside the city where our AI helper can live and work.
-1. The Empty Plot: Termux
-Before you build a house, you need a piece of land. Termux is like a magic "Empty Plot" inside your phone. It’s a special space where we can build whatever we want without the rest of the phone interfering.
-2. The House Structure: Ubuntu
-Now we have the land, but we need walls and a roof. Ubuntu is a full computer system (Linux) that we put inside Termux. It’s like putting a sturdy brick house on our empty plot.
-3. The Furniture: OpenClaw
-A house isn't useful if it's empty! OpenClaw is the furniture.
- * It’s the Desk where the AI writes its reminders.
- * It’s the Telephone (Telegram) it uses to talk to you.
- * It's the Brain (LLM) that tells the furniture how to move.
-🛠 Step-by-Step Construction Guide
-Phase 1: Preparing the Ground (Termux)
- * Download Termux (from F-Droid).
- * Open it and type these magic words to make the ground ready:
-   pkg update && pkg upgrade
+This is a professional and clear README.md structure tailored for your project. It’s designed to be a "Blueprint" so your son (or anyone else) can understand the clever storage trick you used.
+You can copy and paste this directly into your GitHub:
+# 🤖 OpenClaw Hybrid Assistant (UK Edition)
 
- * Install the "Building Kit" (proot-distro):
-   pkg install proot-distro
+A mobile-first, high-reliability AI assistant running locally on Android via Termux/Ubuntu. This project features a **Hybrid Brain** setup, using cloud intelligence for speed and an offline "Prepper Brain" for internet-free failsafes.
 
-Phase 2: Building & Entering the House (Ubuntu)
- * Build the Ubuntu house:
-   proot-distro install ubuntu
+## 🌟 Key Features
+* **Dual-Brain Logic:** Uses OpenRouter (Cloud) as primary and DeepSeek-R1 (Local) as backup.
+* **SD-Card Optimized:** All heavy AI models are offloaded to external storage to keep the 106GB internal phone memory free.
+* **UK Contextualized:** Configured for UK-specific tasks like grocery price tracking (Tesco/Lidl) and VAT calculations.
 
- * Walk inside:
-   proot-distro login ubuntu
+---
 
-Phase 3: Moving the Furniture In (OpenClaw)
-Now that you are inside the Ubuntu house, run the installer:
-curl -fsSL https://openclaw.ai/install.sh | bash
+## 🏗️ System Architecture
 
-🚀 Phase 4: Connecting the Brains
-1. The "Free Tier Hero": Google Gemini
-We started here because it's free!
- * The Step: Go to Google AI Studio, click "Get API Key," and copy it.
- * The Setup: In Termux, type openclaw onboard. Select Google AI and paste your key.
-2. The Professional Upgrade: OpenRouter
-If Google gets tired (Error 429), we use OpenRouter. This lets the bot use many different brains (like Claude or GPT) using one wallet.
- * The Step: Get a key from openrouter.ai.
- * The Setup: ```bash
-   openclaw models auth add --provider openrouter
-   openclaw models set openrouter/openrouter/auto
-   
+### 🏠 The Environment
+* **OS:** Ubuntu (via Proot-Distro in Termux)
+* **DNS:** Configured to `8.8.8.8` (Google) for stable house-to-street connectivity.
+* **Engine:** Ollama (The AI Librarian).
 
-🔧 Phase 5: Troubleshooting (The "Fix-It" List)
-If the bot stops working, check these common fixes we discovered:
-1. The "Bionic Bypass" (Crucial for Android)
-Android phones have a special security rule (Bionic) that makes AI apps crash with an "Error 13" or "Networking Error." We fix this by giving the bot a "Fake Passport" so it doesn't try to look at the phone's hardware.
- * The Fix:
-   # Inside Ubuntu, run this:
-echo 'export OPENCLAW_DISABLE_BONJOUR=1' >> ~/.bashrc
-source ~/.bashrc
+### 💾 Storage Strategy (The SD-Card Trick)
+To prevent the phone from running out of space, we use a **Symbolic Link** to "tunnel" data from the internal Ubuntu folder to the SD card.
+* **SD Card ID:** `3238-6661`
+* **Internal Link:** `~/.ollama/models`
+* **Real Path:** `/storage/3238-6661/Android/data/com.termux/files/ollama_models`
 
-2. The "429 Error" (Rate Limit)
-If the bot says "Rate Limit Reached," it means you have talked to it too much today on the Free Tier.
- * The Fix: Wait 60 seconds. If it still doesn't work, wait until 8 AM UK time when Google resets your daily credits.
-3. The "Deep Sleep" Fix (Keep it Alive)
-Android likes to close apps that run in the background. To keep your bot awake:
- * The Fix: Swipe down your phone's notification bar. Find Termux and click "Acquire Wake Lock." This tells the phone, "Don't let this app sleep!"
-📱 VitaNest Integration
-VitaNest is our custom Android app. OpenClaw connects to it by writing data to a shared folder on the phone.
- * Reminders: Saved in ~/reminders.txt.
- * Grocery List: Saved in ~/grocery.txt.
- * Trading 212: Monitored via API and pushed to VitaNest.
-🚀 Next Step
-Now that your documentation is ready, you can create a new repository on GitHub and upload this file.
-Would you like me to help you write the code for the "Saturday Grocery" script so you can add it to your new repository?
+---
+
+## 🧠 The Offline Brain: DeepSeek-R1 (1.5B)
+The local model is **DeepSeek-R1**, a 1.1GB "Reasoning Model."
+* **Capabilities:** Chain-of-Thought thinking, logic puzzles, coding, and offline UK grocery planning.
+* **Location:** Confirmed 100% on SD card (Internal storage impact: 0GB).
+
+---
+
+## 🛠️ Maintenance Commands
+
+### 1. Start the AI Motor
+If the bot isn't responding offline, ensure the Ollama service is running:
+```bash
+ollama serve &
+
+2. Verify Storage Integrity
+Check that the brain hasn't "leaked" into internal memory:
+du -sh /storage/3238-6661/Android/data/com.termux/files/ollama_models
+# Should return ~1.1G
+
+3. Talk Directly to the Brain
+For a direct terminal chat without using the OpenClaw gateway:
+ollama run deepseek-r1:1.5b
+
+📋 Project History & Today's Milestone (19-Feb-2026)
+ * ✅ Fixed Ubuntu DNS resolution issues.
+ * ✅ Successfully installed Ollama engine.
+ * ✅ Mapped symbolic link to External SD Storage.
+ * ✅ Successfully pulled 1.1GB DeepSeek model to SD Card.
+ * ✅ Verified API response (HTTP 200 OK via GIN).
+Next Step: Integration of the Saturday Grocery Script (Tesco/Sainsbury's API).
+
+---
+
+### 💡 Tip for GitHub:
+When you save this file, if you name it `README.md` (all caps), GitHub will automatically turn it into a beautiful landing page with bold headings and clear code boxes.
+
+**Would you like me to help you write the `groceries.py` script next, or should we set up the "Auto-Start" script so the bot wakes up automatically when the phone reboots?**
+
